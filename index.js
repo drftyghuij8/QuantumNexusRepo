@@ -1,10 +1,16 @@
-function findPeakElement(nums) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] < nums[mid + 1]) left = mid + 1;
-    else right = mid;
+function longestConsecutive(nums) {
+  const set = new Set(nums);
+  let longest = 0;
+  for (const num of set) {
+    if (!set.has(num - 1)) {
+      let currentNum = num;
+      let currentStreak = 1;
+      while (set.has(currentNum + 1)) {
+        currentNum++;
+        currentStreak++;
+      }
+      longest = Math.max(longest, currentStreak);
+    }
   }
-  return left;
+  return longest;
 }
