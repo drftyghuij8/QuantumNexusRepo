@@ -1,16 +1,12 @@
-function longestConsecutive(nums) {
-  const set = new Set(nums);
-  let longest = 0;
-  for (const num of set) {
-    if (!set.has(num - 1)) {
-      let currentNum = num;
-      let currentStreak = 1;
-      while (set.has(currentNum + 1)) {
-        currentNum++;
-        currentStreak++;
-      }
-      longest = Math.max(longest, currentStreak);
+function longestCommonSubsequence(text1, text2) {
+  const m = text1.length;
+  const n = text2.length;
+  const dp = Array.from(Array(m + 1), () => Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (text1[i - 1] === text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
+      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
     }
   }
-  return longest;
+  return dp[m][n];
 }
